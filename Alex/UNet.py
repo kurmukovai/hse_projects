@@ -34,7 +34,7 @@ class Unet(nn.Module):
     
     
     def __init__(self):
-        super(Unet, self).__init__()
+        super(UNet, self).__init__()
 
         # Left side (contracting path)
         self.down_conv1 = double_conv(1, 64)
@@ -94,6 +94,6 @@ class Unet(nn.Module):
         return x
 
 image = torch.rand((6, 1, 574, 574)) # batch * channels * height * width
-model = Unet()
+model = UNet()
 model(image)
 
