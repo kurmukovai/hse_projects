@@ -26,4 +26,4 @@ class BraTSDataset(Dataset):
         if self.transform:
             image, mask = self.transform(sample)
 
-        return torch.from_numpy(image).resize(1, 240, 240), torch.from_numpy(mask)
+        return torch.from_numpy(image).resize(1, 240, 240), torch.from_numpy(mask).resize(1, 240, 240)

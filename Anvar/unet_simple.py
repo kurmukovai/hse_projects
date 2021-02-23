@@ -13,6 +13,12 @@ def conv(in_c, out_c):
     return nn.Conv2d(in_c, out_c, kernel_size=3, padding=1)
 
 class Unet(nn.Module):
+    """
+    16       (+)      16->8->1
+      32     (+)     32
+        64   (+)   64
+          64 -> 64
+    """
     
     def __init__(self, ):
         super().__init__()
@@ -49,10 +55,10 @@ class Unet(nn.Module):
         x5 = self.down_conv_3(x4)
         x6 = self.max_pool2x2(x5)
         
-        x7 = self.bottleneck_conv(x6)
+        x = self.bottleneck_conv(x6)
         
         # up/expansive
-        x = self.upsample_1(functional.interpolate(x7, x5.shape[2:], mode='bilinear'))
+        x = self.upsample_1(functional.interpolate(x, x5.shape[2:], mode='bilinear'))
         x = self.up_conv_1(x+x5)
         
         x = self.upsample_2(functional.interpolate(x, x3.shape[2:], mode='bilinear'))
