@@ -58,13 +58,13 @@ class Unet(nn.Module):
         x = self.bottleneck_conv(x6)
         
         # up/expansive
-        x = self.upsample_1(functional.interpolate(x, x5.shape[2:], mode='bilinear'))
+        x = self.upsample_1(functional.interpolate(x, x5.shape[2:], mode='bilinear', align_corners=False))
         x = self.up_conv_1(x+x5)
         
-        x = self.upsample_2(functional.interpolate(x, x3.shape[2:], mode='bilinear'))
+        x = self.upsample_2(functional.interpolate(x, x3.shape[2:], mode='bilinear', align_corners=False))
         x = self.up_conv_2(x+x3)
         
-        x = self.upsample_3(functional.interpolate(x, x1.shape[2:], mode='bilinear'))
+        x = self.upsample_3(functional.interpolate(x, x1.shape[2:], mode='bilinear', align_corners=False))
         x = self.up_conv_3(x+x1)
 
         # segm
